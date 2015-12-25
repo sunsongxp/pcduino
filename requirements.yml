@@ -1,0 +1,7 @@
+- src: https://github.com/wiredcraft-ops/role-wcl-nginx.git
+  name: wcl-nginx
+  version: master
+
+- src: https://github.com/sunsongxp/apt-mirror.git
+  name: apt-mirror
+  version: master

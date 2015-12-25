@@ -1,0 +1,42 @@
+---
+- hosts: all
+  tasks:
+    - name: Install packages.
+      apt:
+        name={{ item }}
+        update_cache=yes
+        cache_valid_time=3600
+      with_items:
+        - htop
+        - apt-mirror
+
+    - name: create /data/storage folder
+      file:
+        path=/data/storage/ubuntu
+        state=directory
+        owner=root
+        group=root
+        mode=0755
+        recurse=yes
+
+- hosts: all
+  roles:
+    - role: wcl-nginx
+      nginx_user: www-data
+      nginx-group: www-data
+      nginx_http_params:
+        - sendfile on
+        - access_log /var/log/nginx/access.log
+        - error_log /var/log/nginx/error.log
+      nginx_sites:
+        default:
+          - listen 80
+          - server_name _
+
+        app:
+          - listen 80
+          - server_name pcduino.sunsong.org
+          - root "/data/storage"
+          - location / { try_files $uri $uri/ index.html; }
+
+    - role: apt-mirror
