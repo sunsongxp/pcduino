@@ -8,16 +8,32 @@
         cache_valid_time=3600
       with_items:
         - htop
+        - ncdu
         - apt-mirror
 
-    - name: create /data/storage folder
+    - name: Create /data/storage/ubuntu folder
       file:
-        path=/data/storage/ubuntu
+        path=/data/storage/ubuntu/mirror/cn.archive.ubuntu.com/ubuntu
         state=directory
         owner=root
         group=root
         mode=0755
         recurse=yes
+
+    - name: Create /data/www folder
+      file:
+        path=/data/www
+        state=directory
+        owner=root
+        group=root
+        mode=0755
+        recurse=yes
+
+    - name: Create symbolic link.
+      file:
+        src=/data/storage/ubuntu/mirror/cn.archive.ubuntu.com/ubuntu
+        path=/data/www/ubuntu
+        state=link
 
 - hosts: all
   roles:
@@ -36,7 +52,7 @@
         app:
           - listen 80
           - server_name pcduino.sunsong.org
-          - root "/data/storage"
+          - root "/data/www"
           - location / { try_files $uri $uri/ index.html; }
 
     - role: apt-mirror
