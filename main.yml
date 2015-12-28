@@ -9,6 +9,7 @@
       with_items:
         - htop
         - ncdu
+        - ntp
         - apt-mirror
 
     - name: Create /data/storage/ubuntu folder
