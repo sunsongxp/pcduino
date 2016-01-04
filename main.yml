@@ -8,6 +8,7 @@
         cache_valid_time=3600
       with_items:
         - htop
+        - iftop
         - ncdu
         - ntp
         - apt-mirror
@@ -41,10 +42,11 @@
     - role: wcl-nginx
       nginx_user: www-data
       nginx-group: www-data
+      worker_processes: 2
       nginx_http_params:
         - sendfile on
-        - access_log /var/log/nginx/access.log
-        - error_log /var/log/nginx/error.log
+        - access_log /data/log/nginx/access.log
+        - error_log /data/log/nginx/error.log
       nginx_sites:
         default:
           - listen 80
