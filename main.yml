@@ -54,7 +54,7 @@
 
         app:
           - listen 80
-          - server_name pcduino.sunsong.org
+          - server_name office.sunsong.org
           - root "/data/www"
           - location / { try_files $uri $uri/ index.html; }
 
