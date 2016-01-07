@@ -42,7 +42,7 @@
     - role: wcl-nginx
       nginx_user: www-data
       nginx-group: www-data
-      worker_processes: 2
+      nginx_worker_processes: 2
       nginx_http_params:
         - sendfile on
         - access_log /data/log/nginx/access.log
